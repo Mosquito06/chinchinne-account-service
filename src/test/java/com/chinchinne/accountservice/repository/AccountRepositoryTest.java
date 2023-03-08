@@ -1,4 +1,4 @@
-package com.chinchinne.accountservice.controller;
+package com.chinchinne.accountservice.repository;
 
 import com.chinchinne.accountservice.domain.entity.Account;
 import com.chinchinne.accountservice.domain.value.UserId;

@@ -1,4 +1,4 @@
-package com.chinchinne.accountservice.controller;
+package com.chinchinne.accountservice.annotation;
 
 import com.chinchinne.accountservice.AccountServiceApplication;
 import org.junit.jupiter.api.extension.ExtendWith;

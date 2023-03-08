@@ -1,19 +1,8 @@
 package com.chinchinne.accountservice.controller;
 
-import com.chinchinne.accountservice.AccountServiceApplication;
-import com.chinchinne.accountservice.domain.entity.Account;
-import com.chinchinne.accountservice.domain.value.UserId;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.chinchinne.accountservice.annotation.AccountTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
 
 
 @AccountTest
