@@ -18,21 +18,18 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: backend
     password: backend
-
-jpa:
-  hibernate:
-    ddl-auto: none
-  generate-ddl: false
-  properties:
-    hibernate:
-      show_sql: true
-      format_sql: true
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
 
 logging:
   level:
     org:
       hibernate:
+        sql: debug
         type:
           descriptor:
-            sql: info
+            sql: trace
     root: info
