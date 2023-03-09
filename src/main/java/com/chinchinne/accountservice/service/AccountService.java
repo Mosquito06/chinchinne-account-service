@@ -28,6 +28,6 @@ public class AccountService
     {
         Optional<List<Account>> accounts = accountRepository.findByUserId(userId);
 
-        return accounts.get();
+        return accounts.orElseGet(ArrayList::new);
     }
 }
