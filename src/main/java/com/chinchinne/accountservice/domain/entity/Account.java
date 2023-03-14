@@ -3,12 +3,10 @@ package com.chinchinne.accountservice.domain.entity;
 import com.chinchinne.accountservice.domain.model.Common;
 import com.chinchinne.accountservice.domain.model.Status;
 import com.chinchinne.accountservice.domain.value.AccountDate;
-import com.chinchinne.accountservice.domain.value.AccountId;
 import com.chinchinne.accountservice.domain.value.CategoryId;
 import com.chinchinne.accountservice.domain.value.UserId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigInteger;
@@ -21,8 +19,10 @@ import java.util.Date;
 @Access( AccessType.FIELD )
 public class Account
 {
-    @EmbeddedId
-    private AccountId accountId;
+    @Id
+    @Column(name = "SEQ")
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    private BigInteger accountId;
 
     @Embedded
     private UserId userId;
