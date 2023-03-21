@@ -6,6 +6,7 @@
         <result column="YEAR" property="year" jdbcType="VARCHAR" />
         <result column="MONTH" property="month" jdbcType="VARCHAR" />
         <result column="DAY" property="day" jdbcType="VARCHAR" />
+        <result column="CATEGORY_ID" property="category" jdbcType="VARCHAR" />
         <result column="STATUS" property="status" jdbcType="VARCHAR" typeHandler="com.chinchinne.accountservice.converter.StatusHandler" />
         <result column="MEMO" property="memo" jdbcType="VARCHAR" />
         <result column="AMOUNT" property="amount" jdbcType="BIGINT" />
@@ -34,6 +35,7 @@
         SELECT		 YEAR
                     ,MONTH
                     ,DAY
+                    ,CATEGORY_ID
                     ,STATUS
                     ,MEMO
                     ,AMOUNT
