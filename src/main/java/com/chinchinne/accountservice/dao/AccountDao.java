@@ -8,5 +8,6 @@ import java.util.List;
 @Mapper
 public interface AccountDao
 {
+    public List<AccountDto> getAccountsByRequestParam(RequestParam requestParam);
     public List<AccountDto> getAccountByRequestParam(RequestParam requestParam);
 }

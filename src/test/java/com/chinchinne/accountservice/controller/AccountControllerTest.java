@@ -25,7 +25,7 @@ public class AccountControllerTest
     @Test
     public void wrongDateZeroTest()
     {
-        ResponseEntity<List<AccountDto>> account = accountController.getAccount("967d6988-a1f0-11ed-a8fc-0242ac120002", 123L);
+        ResponseEntity<List<AccountDto>> account = accountController.getAccounts("967d6988-a1f0-11ed-a8fc-0242ac120002", 123L);
 
         assertEquals(account.getBody().size(), 0);
     }

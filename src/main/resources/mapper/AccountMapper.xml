@@ -2,10 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinchinne.accountservice.dao.AccountDao">
 
+    <resultMap id="BaseResultMap" type="com.chinchinne.accountservice.model.AccountDto">
+        <result column="YEAR" property="year" jdbcType="VARCHAR" />
+        <result column="MONTH" property="month" jdbcType="VARCHAR" />
+        <result column="DAY" property="day" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" typeHandler="com.chinchinne.accountservice.converter.StatusHandler" />
+        <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+        <result column="AMOUNT" property="amount" jdbcType="BIGINT" />
+        <result column="INCOME_TOTAL" property="incomeTotal" jdbcType="BIGINT" />
+        <result column="EXPENSE_TOTAL" property="expenseTotal" jdbcType="BIGINT" />
+    </resultMap>
 
 
-
-    <select id="getAccountByRequestParam" parameterType="com.chinchinne.accountservice.vo.RequestParam"  resultType="AccountDto">
+    <select id="getAccountsByRequestParam" parameterType="com.chinchinne.accountservice.vo.RequestParam"  resultMap="BaseResultMap">
         SELECT		 YEAR
                     ,MONTH
                     ,DAY
@@ -19,5 +28,21 @@
                     AND MONTH = #{month}
 
         GROUP BY	YEAR, MONTH, DAY
+    </select>
+
+    <select id="getAccountByRequestParam" parameterType="com.chinchinne.accountservice.vo.RequestParam"  resultMap="BaseResultMap">
+        SELECT		 YEAR
+                    ,MONTH
+                    ,DAY
+                    ,STATUS
+                    ,MEMO
+                    ,AMOUNT
+
+        FROM		ACCOUNT
+
+        WHERE       USER_ID = #{userId}
+                    AND YEAR = #{year}
+                    AND MONTH = #{month}
+                    AND DAY = #{day}
     </select>
 </mapper>

@@ -34,7 +34,7 @@ public class AccountDaoTest
     {
         RequestParam req = RequestParam.builder().userId("967d6988-a1f0-11ed-a8fc-0242ac120002").year("2023").month("3").build();
 
-        List<AccountDto> accounts = accountDao.getAccountByRequestParam(req);
+        List<AccountDto> accounts = accountDao.getAccountsByRequestParam(req);
 
         accounts.stream().forEach( at -> System.out.println( at.toString() ));
     }

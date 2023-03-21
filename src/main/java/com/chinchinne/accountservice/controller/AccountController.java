@@ -36,6 +36,22 @@ public class AccountController
     }
 
     @GetMapping("{userId}/{date}/accounts")
+    public ResponseEntity<List<AccountDto>> getAccounts(@PathVariable String userId, @PathVariable Long date)
+    {
+        LocalDateTime localDateTime = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        RequestParam req = RequestParam.builder()
+                                        .userId(userId)
+                                        .year(String.valueOf(localDateTime.getYear()))
+                                        .month(String.valueOf(localDateTime.getMonthValue()))
+                                        .build();
+
+        List<AccountDto> account = accountDao.getAccountsByRequestParam(req);
+
+        return ResponseEntity.status(HttpStatus.OK).body(account);
+    }
+
+    @GetMapping("{userId}/{date}/account")
     public ResponseEntity<List<AccountDto>> getAccount(@PathVariable String userId, @PathVariable Long date)
     {
         LocalDateTime localDateTime = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -44,6 +60,7 @@ public class AccountController
                                         .userId(userId)
                                         .year(String.valueOf(localDateTime.getYear()))
                                         .month(String.valueOf(localDateTime.getMonthValue()))
+                                        .day(String.valueOf(localDateTime.getDayOfMonth()))
                                         .build();
 
         List<AccountDto> account = accountDao.getAccountByRequestParam(req);
