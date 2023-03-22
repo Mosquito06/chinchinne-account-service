@@ -5,8 +5,10 @@ import com.chinchinne.accountservice.domain.model.Status;
 import com.chinchinne.accountservice.domain.value.AccountDate;
 import com.chinchinne.accountservice.domain.value.CategoryId;
 import com.chinchinne.accountservice.domain.value.UserId;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.math.BigInteger;
@@ -59,4 +61,15 @@ public class Account
 
     @Column( name = "DEL_YN")
     private Common delYn;
+
+    public Account( UserId userId, AccountDate accountDate, CategoryId categoryId, Status status, String memo, BigInteger amount, Common delYn )
+    {
+        this.userId = userId;
+        this.accountDate = accountDate;
+        this.categoryId = categoryId;
+        this.status = status;
+        this.memo = memo;
+        this.amount = amount;
+        this.delYn = delYn;
+    }
 }

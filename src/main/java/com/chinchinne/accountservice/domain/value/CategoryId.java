@@ -16,5 +16,5 @@ import java.math.BigInteger;
 public class CategoryId implements Serializable
 {
     @Column(name = "CATEGORY_ID")
-    private String id;
+    private BigInteger id;
 }

@@ -5,14 +5,13 @@ import com.chinchinne.accountservice.domain.entity.Account;
 import com.chinchinne.accountservice.domain.value.UserId;
 import com.chinchinne.accountservice.model.AccountDto;
 import com.chinchinne.accountservice.service.AccountService;
+import com.chinchinne.accountservice.vo.RequestAccount;
 import com.chinchinne.accountservice.vo.RequestParam;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -28,11 +27,14 @@ public class AccountController
 
     AccountService accountService;
 
+    ModelMapper modelMapper;
+
     @Autowired
-    public AccountController( AccountService accountService, AccountDao accountDao )
+    public AccountController( AccountService accountService, AccountDao accountDao, ModelMapper modelMapper )
     {
         this.accountService = accountService;
         this.accountDao = accountDao;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("{userId}/{date}/accounts")
@@ -66,5 +68,22 @@ public class AccountController
         List<AccountDto> account = accountDao.getAccountByRequestParam(req);
 
         return ResponseEntity.status(HttpStatus.OK).body(account);
+    }
+
+    @PostMapping("{userId}/{date}/account")
+    public ResponseEntity<AccountDto> setAccount(@PathVariable String userId, @PathVariable Long date, @RequestBody RequestAccount requestAccount)
+    {
+        LocalDateTime localDateTime = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        requestAccount.setUserId(userId);
+        requestAccount.setYear(String.valueOf(localDateTime.getYear()));
+        requestAccount.setMonth(String.valueOf(localDateTime.getMonthValue()));
+        requestAccount.setDay(String.valueOf(localDateTime.getDayOfMonth()));
+
+        AccountDto accountDto = modelMapper.map(requestAccount, AccountDto.class);
+
+        AccountDto res = accountService.createAccount(accountDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 }

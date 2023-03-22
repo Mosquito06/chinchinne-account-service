@@ -6,7 +6,7 @@
         <result column="YEAR" property="year" jdbcType="VARCHAR" />
         <result column="MONTH" property="month" jdbcType="VARCHAR" />
         <result column="DAY" property="day" jdbcType="VARCHAR" />
-        <result column="CATEGORY_ID" property="category" jdbcType="VARCHAR" />
+        <result column="CATEGORY_NAME" property="category" jdbcType="VARCHAR" />
         <result column="STATUS" property="status" jdbcType="VARCHAR" typeHandler="com.chinchinne.accountservice.converter.StatusHandler" />
         <result column="MEMO" property="memo" jdbcType="VARCHAR" />
         <result column="AMOUNT" property="amount" jdbcType="BIGINT" />
@@ -35,15 +35,17 @@
         SELECT		 YEAR
                     ,MONTH
                     ,DAY
-                    ,CATEGORY_ID
+                    ,CATEGORY_NAME
                     ,STATUS
                     ,MEMO
                     ,AMOUNT
 
-        FROM		ACCOUNT
+        FROM		ACCOUNT ACT
+                    JOIN CATEGORY CTY
+                        ON ACT.USER_ID = #{userId}
+                        AND CTY.SEQ = ACT.CATEGORY_ID
 
-        WHERE       USER_ID = #{userId}
-                    AND YEAR = #{year}
+        WHERE		YEAR = #{year}
                     AND MONTH = #{month}
                     AND DAY = #{day}
     </select>

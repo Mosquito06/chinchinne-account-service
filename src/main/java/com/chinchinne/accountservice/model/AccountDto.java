@@ -1,19 +1,17 @@
 package com.chinchinne.accountservice.model;
 
 import com.chinchinne.accountservice.domain.model.Status;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigInteger;
 
 @Getter
-@ToString
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountDto
 {
+    private String userId;
     private String year;
     private String month;
     private String day;
