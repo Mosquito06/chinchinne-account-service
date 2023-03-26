@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -71,7 +72,7 @@ public class AccountController
     }
 
     @PostMapping("{userId}/{date}/account")
-    public ResponseEntity<AccountDto> setAccount(@PathVariable String userId, @PathVariable Long date, @RequestBody RequestAccount requestAccount)
+    public ResponseEntity<AccountDto> setAccount(@PathVariable String userId, @PathVariable Long date, @RequestBody @Valid RequestAccount requestAccount)
     {
         LocalDateTime localDateTime = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
 
