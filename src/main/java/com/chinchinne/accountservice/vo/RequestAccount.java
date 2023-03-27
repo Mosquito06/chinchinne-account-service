@@ -1,5 +1,7 @@
 package com.chinchinne.accountservice.vo;
 
+import com.chinchinne.accountservice.domain.model.Status;
+import com.chinchinne.accountservice.valid.StatusValid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,10 +22,10 @@ public class RequestAccount
     private String month;
     private String day;
 
-    @NotEmpty
-    private String category;
+    @Min(1)
+    private BigInteger category;
 
-    @NotEmpty
+    @StatusValid
     private String status;
 
     private String memo;
