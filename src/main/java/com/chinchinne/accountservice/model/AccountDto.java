@@ -11,6 +11,7 @@ import java.math.BigInteger;
 @AllArgsConstructor
 public class AccountDto
 {
+    private BigInteger accountId;
     private String userId;
     private String year;
     private String month;

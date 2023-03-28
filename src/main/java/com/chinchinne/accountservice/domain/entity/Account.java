@@ -12,7 +12,10 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import static java.sql.Timestamp.valueOf;
 
 @Entity
 @Table(name = "ACCOUNT")
@@ -71,5 +74,15 @@ public class Account
         this.memo = memo;
         this.amount = amount;
         this.delYn = delYn;
+    }
+
+    public void changeAccount( UserId userId, CategoryId categoryId, Status status, String memo, BigInteger amount )
+    {
+        this.categoryId = categoryId;
+        this.status = status;
+        this.memo = memo;
+        this.amount = amount;
+        this.modDate = valueOf(LocalDateTime.now());
+        this.modId = userId;
     }
 }

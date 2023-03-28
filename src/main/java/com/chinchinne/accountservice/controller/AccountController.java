@@ -72,7 +72,7 @@ public class AccountController
     }
 
     @PostMapping("{userId}/{date}/account")
-    public ResponseEntity<AccountDto> setAccount(@PathVariable String userId, @PathVariable Long date, @RequestBody @Valid RequestAccount requestAccount)
+    public ResponseEntity<AccountDto> addAccount(@PathVariable String userId, @PathVariable Long date, @RequestBody @Valid RequestAccount requestAccount)
     {
         LocalDateTime localDateTime = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
 
@@ -84,6 +84,23 @@ public class AccountController
         AccountDto accountDto = modelMapper.map(requestAccount, AccountDto.class);
 
         AccountDto res = accountService.createAccount(accountDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @PutMapping("{userId}/{date}/account")
+    public ResponseEntity<AccountDto> updateAccount(@PathVariable String userId, @PathVariable Long date, @RequestBody @Valid RequestAccount requestAccount)
+    {
+        LocalDateTime localDateTime = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        requestAccount.setUserId(userId);
+        requestAccount.setYear(String.valueOf(localDateTime.getYear()));
+        requestAccount.setMonth(String.valueOf(localDateTime.getMonthValue()));
+        requestAccount.setDay(String.valueOf(localDateTime.getDayOfMonth()));
+
+        AccountDto accountDto = modelMapper.map(requestAccount, AccountDto.class);
+
+        AccountDto res = accountService.changeAccount(accountDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }

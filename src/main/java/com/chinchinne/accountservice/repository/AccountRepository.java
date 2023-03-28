@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface AccountRepository extends Repository<Account, BigInteger>
 {
     Optional<List<Account>> findByUserId(UserId userId);
+    Optional<Account> findByAccountId(BigInteger accountId);
     void save(Account account);
 }

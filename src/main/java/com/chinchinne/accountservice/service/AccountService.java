@@ -2,13 +2,11 @@ package com.chinchinne.accountservice.service;
 
 import com.chinchinne.accountservice.domain.entity.Account;
 import com.chinchinne.accountservice.domain.model.Common;
-import com.chinchinne.accountservice.domain.model.Status;
 import com.chinchinne.accountservice.domain.value.AccountDate;
 import com.chinchinne.accountservice.domain.value.CategoryId;
 import com.chinchinne.accountservice.domain.value.UserId;
 import com.chinchinne.accountservice.model.AccountDto;
 import com.chinchinne.accountservice.repository.AccountRepository;
-import com.chinchinne.accountservice.vo.RequestAccount;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AccountService
@@ -57,6 +54,26 @@ public class AccountService
         );
 
         accountRepository.save(account);
+
+        return modelMapper.map(account, AccountDto.class);
+    }
+
+    @Transactional
+    public AccountDto changeAccount(AccountDto accountDto)
+    {
+        Account account = accountRepository.findByAccountId(accountDto.getAccountId()).get();
+
+        // 추후 공통 예외 처리
+        // orElseThrow( () -> new Exception(""));
+
+        account.changeAccount
+        (
+             new UserId(accountDto.getUserId())
+            ,new CategoryId(BigInteger.valueOf( Long.parseLong(accountDto.getCategory()) ))
+            ,accountDto.getStatus()
+            ,accountDto.getMemo()
+            ,accountDto.getAmount()
+        );
 
         return modelMapper.map(account, AccountDto.class);
     }

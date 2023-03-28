@@ -17,6 +17,7 @@ import java.math.BigInteger;
 @NoArgsConstructor
 public class RequestAccount
 {
+    private BigInteger accountId;
     private String userId;
     private String year;
     private String month;
