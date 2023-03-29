@@ -5,7 +5,9 @@ import com.chinchinne.accountservice.domain.model.Common;
 import com.chinchinne.accountservice.domain.value.AccountDate;
 import com.chinchinne.accountservice.domain.value.CategoryId;
 import com.chinchinne.accountservice.domain.value.UserId;
+import com.chinchinne.accountservice.exception.CustomException;
 import com.chinchinne.accountservice.model.AccountDto;
+import com.chinchinne.accountservice.model.ErrorCode;
 import com.chinchinne.accountservice.repository.AccountRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,10 +63,7 @@ public class AccountService
     @Transactional
     public AccountDto changeAccount(AccountDto accountDto)
     {
-        Account account = accountRepository.findByAccountId(accountDto.getAccountId()).get();
-
-        // 추후 공통 예외 처리
-        // orElseThrow( () -> new Exception(""));
+        Account account = accountRepository.findByAccountId(accountDto.getAccountId()).orElseThrow( () -> new CustomException(ErrorCode.NOT_FOUND_RECORD));
 
         account.changeAccount
         (

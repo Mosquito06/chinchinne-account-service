@@ -1,4 +1,4 @@
-package com.chinchinne.accountservice.converter;
+package com.chinchinne.accountservice.handler;
 
 import com.chinchinne.accountservice.domain.model.CodeValue;
 import com.chinchinne.accountservice.domain.model.Status;

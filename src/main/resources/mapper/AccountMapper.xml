@@ -7,7 +7,7 @@
         <result column="MONTH" property="month" jdbcType="VARCHAR" />
         <result column="DAY" property="day" jdbcType="VARCHAR" />
         <result column="CATEGORY_NAME" property="category" jdbcType="VARCHAR" />
-        <result column="STATUS" property="status" jdbcType="VARCHAR" typeHandler="com.chinchinne.accountservice.converter.StatusHandler" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" typeHandler="com.chinchinne.accountservice.handler.StatusHandler" />
         <result column="MEMO" property="memo" jdbcType="VARCHAR" />
         <result column="AMOUNT" property="amount" jdbcType="BIGINT" />
         <result column="INCOME_TOTAL" property="incomeTotal" jdbcType="BIGINT" />
