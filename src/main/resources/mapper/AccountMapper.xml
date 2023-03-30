@@ -3,6 +3,7 @@
 <mapper namespace="com.chinchinne.accountservice.dao.AccountDao">
 
     <resultMap id="BaseResultMap" type="com.chinchinne.accountservice.model.AccountDto">
+        <result column="ACCOUNT_ID" property="accountId" jdbcType="BIGINT" />
         <result column="YEAR" property="year" jdbcType="VARCHAR" />
         <result column="MONTH" property="month" jdbcType="VARCHAR" />
         <result column="DAY" property="day" jdbcType="VARCHAR" />
@@ -33,7 +34,8 @@
     </select>
 
     <select id="getAccountByRequestParam" parameterType="com.chinchinne.accountservice.vo.RequestParam"  resultMap="BaseResultMap">
-        SELECT		 YEAR
+        SELECT		 ACT.SEQ AS ACCOUNT_ID
+                    ,YEAR
                     ,MONTH
                     ,DAY
                     ,CATEGORY_NAME
