@@ -9,11 +9,13 @@ import com.chinchinne.accountservice.exception.CustomException;
 import com.chinchinne.accountservice.model.AccountDto;
 import com.chinchinne.accountservice.model.ErrorCode;
 import com.chinchinne.accountservice.repository.AccountRepository;
+import com.chinchinne.accountservice.spec.AccountSpecs;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +35,13 @@ public class AccountService
         this.accountRepository = accountRepository;
     }
 
-    @Transactional
-    public List<Account> getAccountByUserId(UserId userId)
-    {
-        Optional<List<Account>> accounts = accountRepository.findByUserId(userId);
-
-        return accounts.orElseGet(ArrayList::new);
-    }
+//    @Transactional
+//    public List<Account> getAccountByUserId(UserId userId)
+//    {
+//        Optional<List<Account>> accounts = accountRepository.findByUserId(userId);
+//
+//        return accounts.orElseGet(ArrayList::new);
+//    }
 
     @Transactional
     public AccountDto createAccount(AccountDto accountDto)
@@ -63,8 +65,15 @@ public class AccountService
     @Transactional
     public AccountDto changeAccount(AccountDto accountDto)
     {
-        Account account = accountRepository.findByAccountId(accountDto.getAccountId()).orElseThrow( () -> new CustomException(ErrorCode.NOT_FOUND_RECORD));
+        List<Account> accounts = accountRepository.findAll(AccountSpecs.AccountId(accountDto.getAccountId()).and(AccountSpecs.DelYn(Common.NO)))
+                                                  .orElseGet(ArrayList::new);
 
+        if( accounts.isEmpty() )
+        {
+            throw new CustomException(ErrorCode.NOT_FOUND_RECORD);
+        }
+
+        Account account = accounts.get(0);
         account.changeAccount
         (
              new UserId(accountDto.getUserId())
@@ -72,6 +81,27 @@ public class AccountService
             ,accountDto.getStatus()
             ,accountDto.getMemo()
             ,accountDto.getAmount()
+        );
+
+        return modelMapper.map(account, AccountDto.class);
+    }
+
+    @Transactional
+    public AccountDto removeAccount(AccountDto accountDto)
+    {
+        List<Account> accounts = accountRepository.findAll(AccountSpecs.AccountId(accountDto.getAccountId()).and(AccountSpecs.DelYn(Common.NO)))
+                                                  .orElseGet(ArrayList::new);
+
+        if( accounts.isEmpty() )
+        {
+            throw new CustomException(ErrorCode.NOT_FOUND_RECORD);
+        }
+
+        Account account = accounts.get(0);
+        account.removeAccount
+        (
+             new UserId(accountDto.getUserId())
+            ,Common.YES
         );
 
         return modelMapper.map(account, AccountDto.class);

@@ -27,6 +27,7 @@
         WHERE		USER_ID = #{userId}
                     AND YEAR = #{year}
                     AND MONTH = #{month}
+                    AND DEL_YN = 'N'
 
         GROUP BY	YEAR, MONTH, DAY
     </select>
@@ -42,7 +43,8 @@
 
         FROM		ACCOUNT ACT
                     JOIN CATEGORY CTY
-                        ON ACT.USER_ID = #{userId}
+                        ON ACT.DEL_YN = 'N'
+                        AND ACT.USER_ID = #{userId}
                         AND CTY.SEQ = ACT.CATEGORY_ID
 
         WHERE		YEAR = #{year}

@@ -85,4 +85,11 @@ public class Account
         this.modDate = valueOf(LocalDateTime.now());
         this.modId = userId;
     }
+
+    public void removeAccount( UserId userId, Common delYn )
+    {
+        this.modDate = valueOf(LocalDateTime.now());
+        this.modId = userId;
+        this.delYn = delYn;
+    }
 }
