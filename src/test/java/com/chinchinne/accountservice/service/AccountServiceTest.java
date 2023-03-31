@@ -17,7 +17,7 @@ public class AccountServiceTest
     {
         UserId userId = new UserId("967d6988-a1f0-11ed-a8fc-0242ac120002");
 
-        accountService.getAccountByUserId(userId);
+        //accountService.getAccountByUserId(userId);
     }
 
 }

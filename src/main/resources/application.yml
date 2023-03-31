@@ -14,8 +14,9 @@ spring:
   application:
     name: account-service
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/chinchinne
-    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:log4jdbc:mariadb://127.0.0.1:3306/chinchinne
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #driver-class-name: org.mariadb.jdbc.Driver
     username: backend
     password: backend
   jpa:
@@ -23,16 +24,27 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-  sleuth:
-    sampler:
-      probability: 1.0
 
 logging:
   level:
     org:
       hibernate:
-        sql: debug
-        type:
-          descriptor:
-            sql: trace
-    root: info
+        sql: off
+      springframework:
+        web: debug
+    sql: off
+    jdbc: off
+    jdbc.sqlonly: info
+    jdbc.audit: off
+    jdbc.resultset: off
+    jdbc.resultsettable: off
+
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        sql: debug
+#        type:
+#          descriptor:
+#            sql: trace
+#    root: info
