@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.chinchinne</groupId>
     <artifactId>account-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>account-service</name>
     <description>account-service</description>
     <properties>
@@ -84,16 +84,20 @@
             <version>3.1.1</version>
         </dependency>
 
+        <!-- about sleuth -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
+        <!-- about sleuth -->
 
+        <!-- about log4j2 -->
         <dependency>
             <groupId>org.bgee.log4jdbc-log4j2</groupId>
             <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
             <version>1.16</version>
         </dependency>
+        <!-- about log4j2 -->
 
     </dependencies>
     <dependencyManagement>
