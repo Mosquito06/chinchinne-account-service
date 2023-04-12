@@ -8,6 +8,8 @@
         <result column="MONTH" property="month" jdbcType="VARCHAR" />
         <result column="DAY" property="day" jdbcType="VARCHAR" />
         <result column="CATEGORY_NAME" property="category" jdbcType="VARCHAR" />
+        <result column="BACK_COLOR" property="backColor" jdbcType="VARCHAR" />
+        <result column="TEXT_COLOR" property="textColor" jdbcType="VARCHAR" />
         <result column="STATUS" property="status" jdbcType="VARCHAR" typeHandler="com.chinchinne.accountservice.handler.StatusHandler" />
         <result column="MEMO" property="memo" jdbcType="VARCHAR" />
         <result column="AMOUNT" property="amount" jdbcType="BIGINT" />
@@ -21,7 +23,7 @@
                     ,MONTH
                     ,DAY
                     ,SUM( IF(STATUS = 'I', AMOUNT, 0) ) AS INCOME_TOTAL
-                    ,SUM( IF(STATUS = 'o', AMOUNT, 0) ) AS EXPENSE_TOTAL
+                    ,SUM( IF(STATUS = 'O', AMOUNT, 0) ) AS EXPENSE_TOTAL
 
         FROM		ACCOUNT
 
@@ -39,18 +41,19 @@
                     ,MONTH
                     ,DAY
                     ,CATEGORY_NAME
+                    ,BACK_COLOR
+                    ,TEXT_COLOR
                     ,STATUS
                     ,MEMO
                     ,AMOUNT
 
         FROM		ACCOUNT ACT
                     JOIN CATEGORY CTY
-                        ON ACT.DEL_YN = 'N'
-                        AND ACT.USER_ID = #{userId}
+                        ON ACT.USER_ID = #{userId}
+                        AND YEAR = #{year}
+                        AND MONTH = #{month}
+                        AND DAY = #{day}
+                        AND ACT.DEL_YN = 'N'
                         AND CTY.SEQ = ACT.CATEGORY_ID
-
-        WHERE		YEAR = #{year}
-                    AND MONTH = #{month}
-                    AND DAY = #{day}
     </select>
 </mapper>

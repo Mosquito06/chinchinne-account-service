@@ -17,6 +17,8 @@ public class AccountDto
     private String month;
     private String day;
     private String category;
+    private String backColor;
+    private String textColor;
     private Status status;
     private String memo;
     private BigInteger amount;

@@ -70,11 +70,11 @@ public class AccountController
         LocalDateTime localDateTime = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
 
         RequestParam req = RequestParam.builder()
-                .userId(userId)
-                .year(String.valueOf(localDateTime.getYear()))
-                .month(String.valueOf(localDateTime.getMonthValue()))
-                .day(String.valueOf(localDateTime.getDayOfMonth()))
-                .build();
+                                        .userId(userId)
+                                        .year(String.valueOf(localDateTime.getYear()))
+                                        .month(String.valueOf(localDateTime.getMonthValue()))
+                                        .day(String.valueOf(localDateTime.getDayOfMonth()))
+                                        .build();
 
         List<AccountDto> account = accountDao.getAccountByRequestParam(req);
 
