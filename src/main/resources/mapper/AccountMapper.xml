@@ -56,4 +56,21 @@
                         AND ACT.DEL_YN = 'N'
                         AND CTY.SEQ = ACT.CATEGORY_ID
     </select>
+
+    <select id="getChartByRequestParam" parameterType="com.chinchinne.accountservice.vo.RequestParam"  resultMap="BaseResultMap">
+        SELECT		  MAX(CTY.CATEGORY_NAME) AS CATEGORY_NAME
+                     ,MAX(CTY.BACK_COLOR) AS BACK_COLOR
+                     ,SUM(IF(ACT.STATUS = 'I', ACT.AMOUNT, 0) ) AS INCOME_TOTAL
+                     ,SUM(IF(ACT.STATUS = 'O', ACT.AMOUNT, 0) ) AS EXPENSE_TOTAL
+
+                FROM		ACCOUNT ACT
+                                JOIN CATEGORY CTY
+                                     ON ACT.USER_ID = #{userId}
+                                         AND ACT.YEAR = #{year}
+                                         AND ACT.MONTH = #{month}
+                                         AND ACT.DEL_YN = 'N'
+                                         AND CTY.SEQ = ACT.CATEGORY_ID
+
+                GROUP BY	ACT.CATEGORY_ID
+    </select>
 </mapper>

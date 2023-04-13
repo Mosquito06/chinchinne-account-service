@@ -64,6 +64,22 @@ public class AccountController
         return ResponseEntity.status(HttpStatus.OK).body(account);
     }
 
+    @GetMapping("{userId}/{date}/chart")
+    public ResponseEntity<List<AccountDto>> getChart(@PathVariable String userId, @PathVariable Long date)
+    {
+        LocalDateTime localDateTime = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        RequestParam req = RequestParam.builder()
+                                        .userId(userId)
+                                        .year(String.valueOf(localDateTime.getYear()))
+                                        .month(String.valueOf(localDateTime.getMonthValue()))
+                                        .build();
+
+        List<AccountDto> chart = accountDao.getChartByRequestParam(req);
+
+        return ResponseEntity.status(HttpStatus.OK).body(chart);
+    }
+
     @GetMapping("{userId}/{date}/account")
     public ResponseEntity<List<AccountDto>> getAccount(@PathVariable String userId, @PathVariable Long date)
     {

@@ -10,4 +10,5 @@ public interface AccountDao
 {
     public List<AccountDto> getAccountsByRequestParam(RequestParam requestParam);
     public List<AccountDto> getAccountByRequestParam(RequestParam requestParam);
+    public List<AccountDto> getChartByRequestParam(RequestParam requestParam);
 }
