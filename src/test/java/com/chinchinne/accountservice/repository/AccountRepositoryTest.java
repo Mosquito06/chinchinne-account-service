@@ -1,21 +1,12 @@
 package com.chinchinne.accountservice.repository;
 
-import com.chinchinne.accountservice.domain.entity.Account;
-import com.chinchinne.accountservice.domain.value.UserId;
-import com.chinchinne.accountservice.repository.AccountRepository;
-import org.junit.jupiter.api.Test;
+import com.chinchinne.accountservice.repository.jpa.AccountRepository;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.only;
 
 @ExtendWith( MockitoExtension.class )
 public class AccountRepositoryTest

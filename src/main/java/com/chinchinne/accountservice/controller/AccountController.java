@@ -3,11 +3,10 @@ package com.chinchinne.accountservice.controller;
 import com.chinchinne.accountservice.dao.AccountDao;
 import com.chinchinne.accountservice.domain.entity.Account;
 import com.chinchinne.accountservice.domain.model.Common;
-import com.chinchinne.accountservice.domain.value.UserId;
 import com.chinchinne.accountservice.exception.CustomException;
 import com.chinchinne.accountservice.model.AccountDto;
 import com.chinchinne.accountservice.model.ErrorCode;
-import com.chinchinne.accountservice.repository.AccountRepository;
+import com.chinchinne.accountservice.repository.jpa.AccountRepository;
 import com.chinchinne.accountservice.service.AccountService;
 import com.chinchinne.accountservice.spec.AccountSpecs;
 import com.chinchinne.accountservice.vo.RequestAccount;
@@ -16,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,7 +26,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 @RestController
 @RequestMapping("/")

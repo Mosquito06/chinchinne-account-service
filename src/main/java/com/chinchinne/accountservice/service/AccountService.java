@@ -8,18 +8,17 @@ import com.chinchinne.accountservice.domain.value.UserId;
 import com.chinchinne.accountservice.exception.CustomException;
 import com.chinchinne.accountservice.model.AccountDto;
 import com.chinchinne.accountservice.model.ErrorCode;
-import com.chinchinne.accountservice.repository.AccountRepository;
+import com.chinchinne.accountservice.repository.mongo.AccountMongoRepository;
+import com.chinchinne.accountservice.repository.jpa.AccountRepository;
 import com.chinchinne.accountservice.spec.AccountSpecs;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountService
@@ -28,11 +27,14 @@ public class AccountService
 
     AccountRepository accountRepository;
 
+    AccountMongoRepository accountMongoRepository;
+
     @Autowired
-    public AccountService(AccountRepository accountRepository, ModelMapper modelMapper)
+    public AccountService(AccountRepository accountRepository, AccountMongoRepository accountMongoRepository, ModelMapper modelMapper)
     {
         this.modelMapper = modelMapper;
         this.accountRepository = accountRepository;
+        this.accountMongoRepository = accountMongoRepository;
     }
 
 //    @Transactional
@@ -58,8 +60,10 @@ public class AccountService
         );
 
         accountRepository.save(account);
+        accountMongoRepository.save(account);
 
-        return modelMapper.map(account, AccountDto.class);
+        throw new CustomException(ErrorCode.NOT_FOUND_RECORD);
+
     }
 
     @Transactional

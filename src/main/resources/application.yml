@@ -34,6 +34,31 @@ spring:
       database: chinchinne
       username: backend
       password: backend
+  jta:
+    atomikos:
+      connectionfactory:
+        xa-properties:
+          mysql:
+            uniqueResourceName: db1
+          mongodb:
+            uniqueResourceName: db2
+      datasource:
+        ds1:
+          xa-data-source-class-name: org.mariadb.jdbc.MariaDbDataSource
+          unique-resource-name: db1
+          xa-properties:
+            url: jdbc:mariadb://localhost:3306/chinchinne
+            user: backend
+            password: backend
+        ds2:
+          xa-data-source-class-name: org.springframework.data.mongodb.MongoDbFactory
+          unique-resource-name: db2
+          xa-properties:
+            database: db2
+            host: localhost
+            port: 27017
+            username: backend
+            password: backend
 
 logging:
   level:
