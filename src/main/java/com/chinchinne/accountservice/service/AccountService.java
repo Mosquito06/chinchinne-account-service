@@ -45,7 +45,7 @@ public class AccountService
 //        return accounts.orElseGet(ArrayList::new);
 //    }
 
-    @Transactional
+    @Transactional( value = "transactionManager" )
     public AccountDto createAccount(AccountDto accountDto)
     {
         Account account = new Account
@@ -62,11 +62,10 @@ public class AccountService
         accountRepository.save(account);
         accountMongoRepository.save(account);
 
-        throw new CustomException(ErrorCode.NOT_FOUND_RECORD);
-
+        return modelMapper.map(account, AccountDto.class);
     }
 
-    @Transactional
+    @Transactional( value = "transactionManager" )
     public AccountDto changeAccount(AccountDto accountDto)
     {
         List<Account> accounts = accountRepository.findAll(AccountSpecs.AccountId(accountDto.getAccountId()).and(AccountSpecs.DelYn(Common.NO)))
@@ -90,7 +89,7 @@ public class AccountService
         return modelMapper.map(account, AccountDto.class);
     }
 
-    @Transactional
+    @Transactional( value = "transactionManager" )
     public AccountDto removeAccount(AccountDto accountDto)
     {
         List<Account> accounts = accountRepository.findAll(AccountSpecs.AccountId(accountDto.getAccountId()).and(AccountSpecs.DelYn(Common.NO)))

@@ -1,22 +1,13 @@
 package com.chinchinne.accountservice;
 
 import com.chinchinne.accountservice.domain.entity.Account;
-import com.chinchinne.accountservice.domain.model.Status;
 import com.chinchinne.accountservice.model.AccountDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import java.math.BigInteger;
 
 @SpringBootApplication
-@EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.chinchinne.accountservice.repository.jpa")
-@EnableMongoRepositories(basePackages = "com.chinchinne.accountservice.repository.mongo")
 public class AccountServiceApplication
 {
     public static void main(String[] args) {
