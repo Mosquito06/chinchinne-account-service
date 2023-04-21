@@ -1,5 +1,6 @@
 package com.chinchinne.accountservice.service;
 
+import com.chinchinne.accountservice.config.TransactionConfig;
 import com.chinchinne.accountservice.domain.entity.Account;
 import com.chinchinne.accountservice.domain.model.Common;
 import com.chinchinne.accountservice.domain.value.AccountDate;
@@ -45,7 +46,7 @@ public class AccountService
 //        return accounts.orElseGet(ArrayList::new);
 //    }
 
-    @Transactional( value = "transactionManager" )
+    @Transactional( value = TransactionConfig.TRANSACTION_MANAGER )
     public AccountDto createAccount(AccountDto accountDto)
     {
         Account account = new Account
@@ -65,7 +66,7 @@ public class AccountService
         return modelMapper.map(account, AccountDto.class);
     }
 
-    @Transactional( value = "transactionManager" )
+    @Transactional( value = TransactionConfig.TRANSACTION_MANAGER )
     public AccountDto changeAccount(AccountDto accountDto)
     {
         List<Account> accounts = accountRepository.findAll(AccountSpecs.AccountId(accountDto.getAccountId()).and(AccountSpecs.DelYn(Common.NO)))
@@ -89,7 +90,7 @@ public class AccountService
         return modelMapper.map(account, AccountDto.class);
     }
 
-    @Transactional( value = "transactionManager" )
+    @Transactional( value = TransactionConfig.TRANSACTION_MANAGER )
     public AccountDto removeAccount(AccountDto accountDto)
     {
         List<Account> accounts = accountRepository.findAll(AccountSpecs.AccountId(accountDto.getAccountId()).and(AccountSpecs.DelYn(Common.NO)))

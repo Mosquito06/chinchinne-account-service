@@ -25,6 +25,10 @@ import javax.transaction.TransactionManager;
 @EnableMongoRepositories(basePackages = "com.chinchinne.accountservice.repository.mongo")
 public class TransactionConfig
 {
+    public static final String JPA_TRANSACTION_MANAGER = "jpaTransactionManager";
+    public static final String MONGO_TRANSACTION_MANAGER = "mongoTransactionManager";
+    public static final String TRANSACTION_MANAGER = "transactionManager";
+
     @Bean
     public MongoClient mongoClient()
     {
@@ -43,19 +47,19 @@ public class TransactionConfig
         return new MongoTransactionManager(mongoDatabaseFactory);
     }
 
-    @Bean(name = "jpaTransactionManager")
+    @Bean(name = JPA_TRANSACTION_MANAGER)
     public PlatformTransactionManager jpaTransactionManager(EntityManagerFactory entityManagerFactory)
     {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
-    @Bean(name = "mongoTransactionManager")
+    @Bean(name = MONGO_TRANSACTION_MANAGER)
     public PlatformTransactionManager mongoTransactionManager(MongoTransactionManager mongoTransactionManager)
     {
         return mongoTransactionManager;
     }
 
-    @Bean(name = "transactionManager")
+    @Bean(name = TRANSACTION_MANAGER)
     public JtaTransactionManager transactionManager(PlatformTransactionManager jpaTransactionManager, PlatformTransactionManager mongoTransactionManager)
     {
         JtaTransactionManager transactionManager = new JtaTransactionManager();
