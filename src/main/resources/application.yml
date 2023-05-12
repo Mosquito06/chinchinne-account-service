@@ -35,6 +35,18 @@ spring:
       username: backend
       password: backend
 
+management:
+  metrics:
+    export:
+      elastic:
+        enabled: true
+        step: 10s
+        index: metrics
+        host: http://localhost:9200
+    tags:
+#      host: localhost_account-service
+      application: account-service
+
 logging:
   level:
     org:
