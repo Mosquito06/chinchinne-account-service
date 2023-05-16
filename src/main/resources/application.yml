@@ -43,6 +43,19 @@ management:
         step: 10s
         index: metrics
         host: http://localhost:9200
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+      sla:
+        http:
+          server:
+            requests: 100ms, 400ms, 500ms, 2000ms
+      percentiles:
+        http:
+          server:
+            requests: 0.5, 0.9, 0.95, 0.99
     tags:
 #      host: localhost_account-service
       application: account-service
